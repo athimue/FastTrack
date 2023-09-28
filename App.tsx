@@ -45,8 +45,8 @@ function App() {
             },
           }}
         >
-          <Tab.Screen name="Root" component={Planning} options={{ tabBarLabel: "Planning 2023" }} />
-          <Tab.Screen name="Standings" component={Standings} options={{ tabBarLabel: "Standings 2023" }} />
+          <Tab.Screen name="Root" component={Planning} options={{ tabBarLabel: "Planning" }} />
+          <Tab.Screen name="Standings" component={Standings} options={{ tabBarLabel: "Standings" }} />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>
