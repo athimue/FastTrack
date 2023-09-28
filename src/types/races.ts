@@ -1,34 +1,42 @@
-import { Driver, ResponseData } from "./driver";
+import { Constructor } from "./constructor";
+import { Driver } from "./driver";
+
+export interface RaceResponse {
+  MRData: MRData;
+}
+
+export interface MRData {
+  xmlns: string;
+  series: string;
+  url: string;
+  limit: string;
+  offset: string;
+  total: string;
+  RaceTable: RaceTable;
+}
 
 export interface RaceTable {
   season: string;
   round: string;
-  Races?: RacesEntity[] | null;
+  Races: Race[];
 }
 
-export interface RacesEntity {
+export interface Race {
   season: string;
   round: string;
   url: string;
   raceName: string;
   Circuit: Circuit;
-  date: string;
+  date: Date;
   time: string;
-  Results?: ResultsEntity[] | null;
+  Results: Result[];
 }
 
-export interface ResultsEntity {
-  number: string;
-  position: string;
-  positionText: string;
-  points: string;
-  Driver: Driver;
-  Constructor: Constructor;
-  grid: string;
-  laps: string;
-  status: string;
-  Time: Time;
-  FastestLap: FastestLap;
+export interface Circuit {
+  circuitId: string;
+  url: string;
+  circuitName: string;
+  Location: Location;
 }
 
 export interface Location {
@@ -38,53 +46,37 @@ export interface Location {
   country: string;
 }
 
-export type ILocation = {
-  lat: string;
-  long: string;
-  locality: string;
-  country: string;
-};
-
-export type IRace = {
-  circuitId: string;
-  url: string;
-  circuitName: string;
-  location: ILocation;
-};
-
-export type DriverRacesResponse = {
-  MRData: {
-    RaceTable: RaceTable;
-  } & ResponseData;
-};
-
-export interface Circuit {
-  circuitId: string;
-  url: string;
-  circuitName: string;
-  Location: Location;
-}
-
-export interface Constructor {
-  constructorId: string;
-  url: string;
-  name: string;
-  nationality: string;
-}
-
-export interface Time {
-  millis: string;
-  time: string;
+export interface Result {
+  number: string;
+  position: string;
+  positionText: string;
+  points: string;
+  Driver: Driver;
+  Constructor: Constructor;
+  grid: string;
+  laps: string;
+  status: string;
+  Time?: ResultTime;
+  FastestLap: FastestLap;
 }
 
 export interface FastestLap {
   rank: string;
   lap: string;
-  Time: Time;
+  Time: FastestLapTime;
   AverageSpeed: AverageSpeed;
 }
 
 export interface AverageSpeed {
   units: string;
   speed: string;
+}
+
+export interface FastestLapTime {
+  time: string;
+}
+
+export interface ResultTime {
+  millis: string;
+  time: string;
 }

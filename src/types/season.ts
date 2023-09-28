@@ -1,8 +1,8 @@
 import { Circuit } from "./races";
 
-export type CurrentSeasonResponse = {
+export type SeasonResponse = {
   MRData: {
-    RaceTable: CurrentSeasonTable;
+    RaceTable: SeasonTable;
     limit: number;
     offset: number;
     sefies: string;
@@ -12,12 +12,12 @@ export type CurrentSeasonResponse = {
   };
 };
 
-export type CurrentSeasonTable = {
+export type SeasonTable = {
   season: string;
-  Races: CurrentSeasonRace[];
+  Races: SeasonRace[];
 };
 
-export type CurrentSeasonRace = {
+export type SeasonRace = {
   season: string;
   round: string;
   url: string;
