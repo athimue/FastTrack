@@ -5,13 +5,6 @@ import { useNavigation } from "@react-navigation/native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { ActivityIndicator } from "@react-native-material/core";
 
-function Loader({ isLoading }) {
-  if (isLoading) {
-    return <ActivityIndicator size="large" />;
-  }
-  return null;
-}
-
 const Season = () => {
   const navigation = useNavigation();
   const [season, setSeason] = useState<string>("2023");
@@ -29,7 +22,10 @@ const Season = () => {
     const itemStyle = index % 2 === 0 ? [styles.dataView, styles.leftColumn] : [styles.dataView, styles.rightColumn];
 
     return (
-      <TouchableOpacity style={itemStyle} onPress={() => navigation.navigate("RaceResult", { raceId: item.round })}>
+      <TouchableOpacity
+        style={itemStyle}
+        onPress={() => navigation.navigate("RaceResult", { season: season, raceId: item.round })}
+      >
         <Text style={styles.title}>GP : {item.round}</Text>
         <Text style={styles.subTitle}>{item.raceName}</Text>
         <Text style={styles.text}>
@@ -55,7 +51,7 @@ const Season = () => {
         searchPlaceholder={season}
         save="value"
       />
-      {!data && <Loader isLoading={isLoading} />}
+      {!data && <ActivityIndicator size="large" />}
       {data && (
         <FlatList
           data={data?.MRData.RaceTable.Races}

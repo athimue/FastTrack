@@ -8,15 +8,15 @@ export const currentStandingsApi = createApi({
     baseUrl: "http://ergast.com/api/f1/",
   }),
   endpoints: (builder) => ({
-    getCurrentDriverStandings: builder.query<DriverStandingsResponse, null>({
-      query: () => ({
-        url: "current/driverstandings.json",
+    getCurrentDriverStandings: builder.query<DriverStandingsResponse, string>({
+      query: (season: string) => ({
+        url: `${season}/driverstandings.json`,
         method: "get",
       }),
     }),
-    getCurrentConstructorStandings: builder.query<ConstructorStandingsResponse, null>({
-      query: () => ({
-        url: "current/constructorstandings.json",
+    getCurrentConstructorStandings: builder.query<ConstructorStandingsResponse, string>({
+      query: (season: string) => ({
+        url: `${season}/constructorstandings.json`,
         method: "get",
       }),
     }),
