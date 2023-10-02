@@ -7,7 +7,7 @@ import { store } from "./src/store/store";
 import Standings from "./src/screens/standings";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import RaceResult from "./src/screens/raceresult";
-import { View } from "react-native";
+import Home from "./src/screens/home";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -31,7 +31,7 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Tab.Navigator
-          initialRouteName="Root"
+          initialRouteName="Home"
           screenOptions={{
             tabBarActiveTintColor: "#6C3082",
             tabBarInactiveTintColor: "#6C3082",
@@ -45,6 +45,7 @@ function App() {
             },
           }}
         >
+          <Tab.Screen name="Home" component={Home} options={{ tabBarLabel: "Home" }} />
           <Tab.Screen name="Root" component={Planning} options={{ tabBarLabel: "Planning" }} />
           <Tab.Screen name="Standings" component={Standings} options={{ tabBarLabel: "Standings" }} />
         </Tab.Navigator>

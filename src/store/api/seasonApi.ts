@@ -8,9 +8,9 @@ export const currentSeasonApi = createApi({
     baseUrl: "http://ergast.com/api/f1/",
   }),
   endpoints: (builder) => ({
-    getCurrentSeason: builder.query<SeasonResponse, null>({
-      query: () => ({
-        url: "current.json",
+    getCurrentSeason: builder.query<SeasonResponse, string>({
+      query: (season) => ({
+        url: `${season}.json`,
         method: "get",
       }),
     }),
