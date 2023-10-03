@@ -23,7 +23,7 @@ const Race = () => {
         <Text style={styles.text}>
           {race?.Circuit.circuitName} / {race?.Circuit.Location.country}
         </Text>
-        <Text style={[styles.text, { marginBottom: 10 }]}>{race?.date}</Text>
+        <Text style={[styles.text, { marginBottom: 10 }]}>{race?.date.toString()}</Text>
         <Divider />
         <Text style={[styles.text, { marginTop: 10 }]}>Race results</Text>
         <View style={{}}>

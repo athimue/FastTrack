@@ -52,7 +52,7 @@ const Home = () => {
           <Text style={styles.text}>
             {lastRace?.Circuit.circuitName} / {lastRace?.Circuit.Location.country}
           </Text>
-          <Text style={[styles.text, { marginBottom: 10 }]}>{lastRace?.date}</Text>
+          <Text style={[styles.text, { marginBottom: 10 }]}>{lastRace?.date.toString()}</Text>
           <Divider />
           <Text style={[styles.text, { marginTop: 10 }]}>Race results</Text>
           <View style={{}}>
