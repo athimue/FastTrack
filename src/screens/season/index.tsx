@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Linking, Image } from "react-native";
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Linking } from "react-native";
 import { useGetCurrentSeasonQuery } from "../../store/api/seasonApi";
 import { useNavigation } from "@react-navigation/native";
 import { SelectList } from "react-native-dropdown-select-list";
@@ -8,7 +8,7 @@ import { ActivityIndicator } from "@react-native-material/core";
 const Season = () => {
   const navigation = useNavigation();
   const [season, setSeason] = useState<string>("2023");
-  const { data, isLoading } = useGetCurrentSeasonQuery(season);
+  const { data } = useGetCurrentSeasonQuery(season);
   const spinnerChoices = [
     { key: "2023", value: "2023" },
     { key: "2022", value: "2022" },
@@ -24,7 +24,7 @@ const Season = () => {
     return (
       <TouchableOpacity
         style={itemStyle}
-        onPress={() => navigation.navigate("RaceResult", { season: season, raceId: item.round })}
+        onPress={() => navigation.navigate("Race", { season: season, raceId: item.round })}
       >
         <Text style={styles.title}>GP : {item.round}</Text>
         <Text style={styles.subTitle}>{item.raceName}</Text>
@@ -41,13 +41,15 @@ const Season = () => {
   };
 
   return (
-    <View style={[styles.container, StyleSheet.absoluteFill]}>
-      <Text>PLANNING OF THE SELECTED SEASON</Text>
+    <View style={styles.container}>
+      <Text style={styles.header}>PLANNING OF THE SELECTED SEASON</Text>
       <SelectList
-        boxStyles={{ marginVertical: 20 }}
+        boxStyles={{ borderColor: "#ffffff" }}
+        inputStyles={{ color: "#ffffff" }}
+        dropdownTextStyles={{ color: "#ffffff" }}
         setSelected={(val: string) => setSeason(val)}
         data={spinnerChoices}
-        placeholder={season}
+        placeholder="SEASON"
         searchPlaceholder={season}
         save="value"
       />
@@ -66,7 +68,9 @@ const Season = () => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    backgroundColor: "#1e1e1e",
+    paddingHorizontal: 50,
+    flex: 1,
   },
   header: {
     textAlign: "center",
@@ -74,7 +78,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 35,
     color: "#ffffff",
-    backgroundColor: "#6C3082",
   },
   dataView: {
     flex: 1,
@@ -83,19 +86,23 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
+    borderColor: "#707079",
     justifyContent: "center",
     alignItems: "center",
   },
   title: {
     fontSize: 25,
     fontWeight: "bold",
+    color: "#ffffff",
   },
   subTitle: {
     fontSize: 18,
     fontWeight: "bold",
+    color: "#ffffff",
   },
   text: {
     fontSize: 18,
+    color: "#ffffff",
   },
   leftColumn: {
     marginTop: 10,
