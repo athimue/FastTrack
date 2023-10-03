@@ -29,7 +29,11 @@ export interface Race {
   Circuit: Circuit;
   date: Date;
   time: string;
-  Results: Result[];
+  Results?: Result[];
+  FirstPractice?: Practice;
+  Qualifying?: Practice;
+  SecondPractice?: Practice;
+  Sprint?: Practice;
 }
 
 export interface Circuit {
@@ -78,5 +82,10 @@ export interface FastestLapTime {
 
 export interface ResultTime {
   millis: string;
+  time: string;
+}
+
+export interface Practice {
+  date: string;
   time: string;
 }

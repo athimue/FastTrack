@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SeasonResponse } from "../../types/season";
 import { RaceResponse } from "../../types/races";
 
-export const currentSeasonApi = createApi({
+export const seasonApi = createApi({
   reducerPath: "seasonApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://ergast.com/api/f1/",
@@ -23,4 +23,4 @@ export const currentSeasonApi = createApi({
   }),
 });
 
-export const { useGetCurrentSeasonQuery, useGetSeasonRaceResultQuery } = currentSeasonApi;
+export const { useGetCurrentSeasonQuery, useGetSeasonRaceResultQuery } = seasonApi;
