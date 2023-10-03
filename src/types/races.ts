@@ -1,3 +1,4 @@
+import { Circuit } from "./circuits";
 import { Constructor } from "./constructor";
 import { Driver } from "./driver";
 
@@ -34,20 +35,6 @@ export interface Race {
   Qualifying?: Practice;
   SecondPractice?: Practice;
   Sprint?: Practice;
-}
-
-export interface Circuit {
-  circuitId: string;
-  url: string;
-  circuitName: string;
-  Location: Location;
-}
-
-export interface Location {
-  lat: string;
-  long: string;
-  locality: string;
-  country: string;
 }
 
 export interface Result {

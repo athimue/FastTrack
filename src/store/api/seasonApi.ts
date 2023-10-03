@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { SeasonResponse } from "../../types/season";
 import { RaceResponse } from "../../types/races";
+import { CircuitTable, CircuitsResponse } from "../../types/circuits";
 
 export const seasonApi = createApi({
   reducerPath: "seasonApi",
@@ -14,13 +15,19 @@ export const seasonApi = createApi({
         method: "get",
       }),
     }),
-    getSeasonRaceResult: builder.query<RaceResponse, string>({
+    getSeasonRaceResult: builder.query<RaceResponse, { season: string; raceId: string }>({
+      query: ({ season, raceId }) => ({
+        url: `${season}/${raceId}/results.json`,
+        method: "get",
+      }),
+    }),
+    getSeasonCircuits: builder.query<CircuitsResponse, string>({
       query: (id) => ({
-        url: `current/${id}/results.json`,
+        url: `${id}/circuits.json`,
         method: "get",
       }),
     }),
   }),
 });
 
-export const { useGetCurrentSeasonQuery, useGetSeasonRaceResultQuery } = seasonApi;
+export const { useGetCurrentSeasonQuery, useGetSeasonRaceResultQuery, useGetSeasonCircuitsQuery } = seasonApi;
