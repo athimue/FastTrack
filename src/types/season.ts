@@ -1,4 +1,4 @@
-import { Circuit } from "./races";
+import { Circuit } from "./circuits";
 
 export type SeasonResponse = {
   MRData: {

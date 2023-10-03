@@ -1,3 +1,4 @@
+import { Circuit } from "./circuits";
 import { Constructor } from "./constructor";
 import { Driver } from "./driver";
 
@@ -29,21 +30,11 @@ export interface Race {
   Circuit: Circuit;
   date: Date;
   time: string;
-  Results: Result[];
-}
-
-export interface Circuit {
-  circuitId: string;
-  url: string;
-  circuitName: string;
-  Location: Location;
-}
-
-export interface Location {
-  lat: string;
-  long: string;
-  locality: string;
-  country: string;
+  Results?: Result[];
+  FirstPractice?: Practice;
+  Qualifying?: Practice;
+  SecondPractice?: Practice;
+  Sprint?: Practice;
 }
 
 export interface Result {
@@ -78,5 +69,10 @@ export interface FastestLapTime {
 
 export interface ResultTime {
   millis: string;
+  time: string;
+}
+
+export interface Practice {
+  date: string;
   time: string;
 }

@@ -22,77 +22,96 @@ const Standings = () => {
   ];
 
   return (
-    <View style={[styles.container, StyleSheet.absoluteFill]}>
-      <ScrollView style={StyleSheet.absoluteFill}>
-        <Text>STANDINGS OF THE SELECTED SEASON</Text>
-        <SelectList
-          boxStyles={{ marginVertical: 20 }}
-          setSelected={(val: string) => setSeason(val)}
-          data={spinnerChoices}
-          placeholder={season}
-          searchPlaceholder={season}
-          save="value"
-        />
-        {isLoading && <ActivityIndicator size="large" />}
-        {data && (
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
-              <Text style={{ margin: 20, fontSize: 30 }}>DRIVERS</Text>
-              <DataTable>
-                <DataTable.Header>
-                  <DataTable.Title>Position</DataTable.Title>
-                  <DataTable.Title>Name</DataTable.Title>
-                  <DataTable.Title>Points</DataTable.Title>
-                </DataTable.Header>
-                <FlatList
-                  data={data?.MRData.StandingsTable.StandingsLists[0].DriverStandings}
-                  renderItem={({ item: driverStanding, index }) => (
-                    <DataTable.Row key={index}>
-                      <DataTable.Cell>{driverStanding.position}</DataTable.Cell>
-                      <DataTable.Cell>
-                        {driverStanding.Driver.givenName} {driverStanding.Driver.familyName}
-                      </DataTable.Cell>
-                      <DataTable.Cell>{driverStanding.points}</DataTable.Cell>
-                    </DataTable.Row>
-                  )}
-                  scrollEnabled={true}
-                  keyExtractor={(driverStanding) => driverStanding.position}
-                />
-              </DataTable>
-            </View>
-            <Divider horizontalInset />
-            <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
-              <Text style={{ margin: 20, fontSize: 30 }}>CONSTRUCTORS</Text>
-              <DataTable>
-                <DataTable.Header>
-                  <DataTable.Title>Position</DataTable.Title>
-                  <DataTable.Title>Name</DataTable.Title>
-                  <DataTable.Title>Points</DataTable.Title>
-                </DataTable.Header>
-                <FlatList
-                  data={constructorStandings}
-                  renderItem={({ item: constructorStandings, index }) => (
-                    <DataTable.Row key={index}>
-                      <DataTable.Cell>{constructorStandings.position}</DataTable.Cell>
-                      <DataTable.Cell>{constructorStandings.Constructor.name}</DataTable.Cell>
-                      <DataTable.Cell>{constructorStandings.points}</DataTable.Cell>
-                    </DataTable.Row>
-                  )}
-                  scrollEnabled={true}
-                  keyExtractor={(driverStanding) => driverStanding.position}
-                />
-              </DataTable>
-            </View>
+    <View style={styles.container}>
+      <Text style={styles.header}>STANDINGS OF THE SELECTED SEASON</Text>
+      <SelectList
+        boxStyles={{ borderColor: "#ffffff" }}
+        inputStyles={{ color: "#ffffff" }}
+        dropdownTextStyles={{ color: "#ffffff" }}
+        setSelected={(val: string) => setSeason(val)}
+        data={spinnerChoices}
+        placeholder={season}
+        searchPlaceholder={season}
+        save="value"
+      />
+      {isLoading && <ActivityIndicator size="large" />}
+      {data && (
+        <View style={{ flex: 1, flexDirection: "row" }}>
+          <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
+            <Text style={{ margin: 20, fontSize: 30, color: "#ffffff", fontFamily: "Avenir" }}>DRIVERS</Text>
+            <DataTable>
+              <DataTable.Header>
+                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Position</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Name</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Points</DataTable.Title>
+              </DataTable.Header>
+              <FlatList
+                data={data?.MRData.StandingsTable.StandingsLists[0].DriverStandings}
+                renderItem={({ item: driverStanding, index }) => (
+                  <DataTable.Row key={index}>
+                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
+                      {driverStanding.position}
+                    </DataTable.Cell>
+                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
+                      {driverStanding.Driver.givenName} {driverStanding.Driver.familyName}
+                    </DataTable.Cell>
+                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
+                      {driverStanding.points}
+                    </DataTable.Cell>
+                  </DataTable.Row>
+                )}
+                scrollEnabled={true}
+                keyExtractor={(driverStanding) => driverStanding.position}
+              />
+            </DataTable>
           </View>
-        )}
-      </ScrollView>
+          <Divider horizontalInset />
+          <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
+            <Text style={{ margin: 20, fontSize: 30, color: "#ffffff", fontFamily: "Avenir" }}>CONSTRUCTORS</Text>
+            <DataTable>
+              <DataTable.Header>
+                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Position</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Name</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Points</DataTable.Title>
+              </DataTable.Header>
+              <FlatList
+                data={constructorStandings}
+                renderItem={({ item: constructorStandings, index }) => (
+                  <DataTable.Row key={index}>
+                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
+                      {constructorStandings.position}
+                    </DataTable.Cell>
+                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
+                      {constructorStandings.Constructor.name}
+                    </DataTable.Cell>
+                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
+                      {constructorStandings.points}
+                    </DataTable.Cell>
+                  </DataTable.Row>
+                )}
+                scrollEnabled={true}
+                keyExtractor={(driverStanding) => driverStanding.position}
+              />
+            </DataTable>
+          </View>
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    backgroundColor: "#1e1e1e",
+    paddingHorizontal: 40,
+    flex: 1,
+  },
+  header: {
+    textAlign: "center",
+    padding: 20,
+    marginTop: 5,
+    fontSize: 35,
+    color: "#ffffff",
   },
 });
 

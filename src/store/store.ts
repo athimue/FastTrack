@@ -1,12 +1,14 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { driverApi } from "./api/driverApi";
-import { currentSeasonApi } from "./api/seasonApi";
-import { currentStandingsApi } from "./api/standingsApi";
+import { raceApi } from "./api/raceApi";
+import { seasonApi } from "./api/seasonApi";
+import { standingsApi } from "./api/standingsApi";
 
 const reducers = combineReducers({
   [driverApi.reducerPath]: driverApi.reducer,
-  [currentSeasonApi.reducerPath]: currentSeasonApi.reducer,
-  [currentStandingsApi.reducerPath]: currentStandingsApi.reducer,
+  [raceApi.reducerPath]: raceApi.reducer,
+  [seasonApi.reducerPath]: seasonApi.reducer,
+  [standingsApi.reducerPath]: standingsApi.reducer,
 });
 
 export const store = configureStore({
@@ -16,8 +18,9 @@ export const store = configureStore({
       serializableCheck: false,
     })
       .concat(driverApi.middleware)
-      .concat(currentSeasonApi.middleware)
-      .concat(currentStandingsApi.middleware),
+      .concat(seasonApi.middleware)
+      .concat(raceApi.middleware)
+      .concat(standingsApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

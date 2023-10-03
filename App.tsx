@@ -6,22 +6,23 @@ import { Provider } from "react-redux";
 import { store } from "./src/store/store";
 import Standings from "./src/screens/standings";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import RaceResult from "./src/screens/raceresult";
 import Home from "./src/screens/home";
+import Search from "./src/screens/search";
+import Race from "./src/screens/race";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function Planning() {
+function SearchStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Season"
+      initialRouteName="Search"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Season" component={Season} />
-      <Stack.Screen name="RaceResult" component={RaceResult} />
+      <Stack.Screen name="Search" component={Search} />
+      <Stack.Screen name="Race" component={Race} />
     </Stack.Navigator>
   );
 }
@@ -33,11 +34,11 @@ function App() {
         <Tab.Navigator
           initialRouteName="Home"
           screenOptions={{
-            tabBarActiveTintColor: "#6C3082",
-            tabBarInactiveTintColor: "#6C3082",
-            tabBarStyle: { backgroundColor: "#ffffffff" },
+            tabBarActiveTintColor: "#ffffff",
+            tabBarInactiveTintColor: "#f00201",
+            tabBarStyle: { backgroundColor: "#1e1e1e" },
             tabBarIndicatorStyle: {
-              backgroundColor: "#6C3082",
+              backgroundColor: "#f00201",
             },
             tabBarLabelStyle: {
               fontSize: 25,
@@ -46,7 +47,8 @@ function App() {
           }}
         >
           <Tab.Screen name="Home" component={Home} options={{ tabBarLabel: "Home" }} />
-          <Tab.Screen name="Root" component={Planning} options={{ tabBarLabel: "Planning" }} />
+          <Tab.Screen name="Search" component={SearchStack} options={{ tabBarLabel: "Search" }} />
+          <Tab.Screen name="Season" component={Season} options={{ tabBarLabel: "Season" }} />
           <Tab.Screen name="Standings" component={Standings} options={{ tabBarLabel: "Standings" }} />
         </Tab.Navigator>
       </NavigationContainer>
