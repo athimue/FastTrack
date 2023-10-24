@@ -1,6 +1,9 @@
 {
   "extends": "expo/tsconfig.base",
-  "compilerOptions": {
-    "strict": true
-  }
+        "compilerOptions": {
+        "types": ["reflect-metadata"],
+        "module": "commonjs",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    }
 }
