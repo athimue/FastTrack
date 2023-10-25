@@ -56,23 +56,19 @@ const StandingsController = () => {
             <Text style={{ margin: 20, fontSize: 30, color: "#ffffff" }}>DRIVERS</Text>
             <DataTable>
               <DataTable.Header>
-                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Position</DataTable.Title>
-                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Name</DataTable.Title>
-                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Points</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff" }}>Position</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff" }}>Name</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff" }}>Points</DataTable.Title>
               </DataTable.Header>
               <FlatList
                 data={drivers}
                 renderItem={({ item: driverStanding, index }) => (
                   <DataTable.Row key={index}>
-                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
-                      {driverStanding.position}
-                    </DataTable.Cell>
-                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
+                    <DataTable.Cell textStyle={{ color: "#ffffff" }}>{driverStanding.position}</DataTable.Cell>
+                    <DataTable.Cell textStyle={{ color: "#ffffff" }}>
                       {driverStanding.driver.givenName} {driverStanding.driver.familyName}
                     </DataTable.Cell>
-                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
-                      {driverStanding.points}
-                    </DataTable.Cell>
+                    <DataTable.Cell textStyle={{ color: "#ffffff" }}>{driverStanding.points}</DataTable.Cell>
                   </DataTable.Row>
                 )}
                 scrollEnabled={true}
@@ -85,23 +81,19 @@ const StandingsController = () => {
             <Text style={{ margin: 20, fontSize: 30, color: "#ffffff" }}>CONSTRUCTORS</Text>
             <DataTable>
               <DataTable.Header>
-                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Position</DataTable.Title>
-                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Name</DataTable.Title>
-                <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Points</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff" }}>Position</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff" }}>Name</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff" }}>Points</DataTable.Title>
               </DataTable.Header>
               <FlatList
                 data={constructors}
                 renderItem={({ item: constructorStandings, index }) => (
                   <DataTable.Row key={index}>
-                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
-                      {constructorStandings.position}
-                    </DataTable.Cell>
-                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
+                    <DataTable.Cell textStyle={{ color: "#ffffff" }}>{constructorStandings.position}</DataTable.Cell>
+                    <DataTable.Cell textStyle={{ color: "#ffffff" }}>
                       {constructorStandings.carConstructor.name}
                     </DataTable.Cell>
-                    <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
-                      {constructorStandings.points}
-                    </DataTable.Cell>
+                    <DataTable.Cell textStyle={{ color: "#ffffff" }}>{constructorStandings.points}</DataTable.Cell>
                   </DataTable.Row>
                 )}
                 scrollEnabled={true}

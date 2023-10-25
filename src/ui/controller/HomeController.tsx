@@ -68,7 +68,7 @@ const HomeController: React.FC = () => {
           </Text>
           <Text style={[styles.information, { marginBottom: 10 }]}>{lastRace?.date.toString()}</Text>
           <Divider />
-          <Text style={[styles.information, { marginTop: 10 }]}>Race results</Text>
+          <Text style={[styles.information, { marginTop: 10, textAlign: "center" }]}>LEADERBOARD</Text>
           <View style={{}}>
             <DataTable>
               <DataTable.Header>

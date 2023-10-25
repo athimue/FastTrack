@@ -4,6 +4,7 @@ import { RaceDto, RaceResponseDto } from "../dto/RaceDto";
 import { injectable } from "inversify";
 import { DriverStandingDto, DriverStandingsResponseDto } from "../dto/DriverStandingsDto";
 import { ConstructorStandingDto, ConstructorStandingsResponseDto } from "../dto/ConstructorStandingsDto";
+import { CircuitDto, CircuitsResponseDto } from "../dto/CircuitDto";
 
 @injectable()
 export class ErgastApi {
@@ -39,10 +40,10 @@ export class ErgastApi {
     });
   };
 
-  getCircuits = async (season: number): Promise<RaceDto> => {
+  getCircuits = async (season: number): Promise<CircuitDto[]> => {
     return axios.get(`${this.baseUrl}/${season}/circuits.json`).then((response) => {
-      let raceResponseDto: RaceResponseDto = response.data;
-      return raceResponseDto.MRData.RaceTable.Races[0];
+      let circuitsResponseDto: CircuitsResponseDto = response.data;
+      return circuitsResponseDto.MRData.CircuitTable.Circuits;
     });
   };
 

@@ -5,6 +5,8 @@ import { ErgastApi } from "../network/api/ErgastApi";
 import { toRace } from "../network/dto/RaceDto";
 import container, { TYPES } from "../../../inversify.config";
 import { SeasonRepository } from "../../domain/repository/SeasonRepository";
+import { Circuit } from "../../domain/model/Circuit";
+import { toCircuit } from "../network/dto/CircuitDto";
 
 @injectable()
 export class SeasonRepositoryImpl implements SeasonRepository {
@@ -20,8 +22,8 @@ export class SeasonRepositoryImpl implements SeasonRepository {
     return toRace(raceDto);
   };
 
-  getCircuits = async (season: number): Promise<Race> => {
-    const raceDto = await this.ergastApi.getCircuits(season);
-    return toRace(raceDto);
+  getCircuits = async (season: number): Promise<Circuit[]> => {
+    const circuitsDto = await this.ergastApi.getCircuits(season);
+    return circuitsDto.map((circuit) => toCircuit(circuit));
   };
 }

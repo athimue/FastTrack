@@ -12,6 +12,8 @@ import { StandingsRepositoryImpl } from "./src/data/repository/StandingsResponse
 import { GetSeasonPlanningUseCase } from "./src/domain/usecase/GetSeasonPlanningUseCase";
 import { GetDriverStandingsUseCase } from "./src/domain/usecase/GetDriverStandingsUseCase";
 import { GetConstructorStandingsUseCase } from "./src/domain/usecase/GetConstructorStandingsUseCase";
+import { GetCircuitsUseCase } from "./src/domain/usecase/GetCircuitsUseCase";
+import { GetRaceUseCase } from "./src/domain/usecase/GetRaceUseCase";
 
 export const TYPES = {
   // DATA SOURCE
@@ -26,6 +28,8 @@ export const TYPES = {
   GetSeasonPlanningUseCase: Symbol.for("GetSeasonPlanningUseCase"),
   GetDriverStandingsUseCase: Symbol.for("GetDriverStandingsUseCase"),
   GetConstructorStandingsUseCase: Symbol.for("GetConstructorStandingsUseCase"),
+  GetCircuitsUseCase: Symbol.for("GetCircuitsUseCase"),
+  GetRaceUseCase: Symbol.for("GetRaceUseCase"),
 };
 
 const container = new Container();
@@ -42,6 +46,8 @@ container.bind<GetNextRaceUseCase>(TYPES.GetNextRaceUseCase).to(GetNextRaceUseCa
 container.bind<GetSeasonPlanningUseCase>(TYPES.GetSeasonPlanningUseCase).to(GetSeasonPlanningUseCase);
 container.bind<GetDriverStandingsUseCase>(TYPES.GetDriverStandingsUseCase).to(GetDriverStandingsUseCase);
 container.bind<GetConstructorStandingsUseCase>(TYPES.GetConstructorStandingsUseCase).to(GetConstructorStandingsUseCase);
+container.bind<GetCircuitsUseCase>(TYPES.GetCircuitsUseCase).to(GetCircuitsUseCase);
+container.bind<GetRaceUseCase>(TYPES.GetRaceUseCase).to(GetRaceUseCase);
 
 // Exporter le conteneur
 export default container;

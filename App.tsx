@@ -6,10 +6,28 @@ import HomeController from "./src/ui/controller/HomeController";
 import { Provider } from "inversify-react";
 import SearchController from "./src/ui/controller/SearchController";
 import SeasonController from "./src/ui/controller/SeasonController";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import StandingsController from "./src/ui/controller/StandingsController";
+
 import container from "./inversify.config";
+import { RaceController } from "./src/ui/controller/RaceController";
 
 const Tab = createMaterialTopTabNavigator();
+const Stack = createNativeStackNavigator();
+
+function SearchStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Search"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Search" component={SearchController} />
+      <Stack.Screen name="Race" component={RaceController} />
+    </Stack.Navigator>
+  );
+}
 
 function App() {
   return (
@@ -30,7 +48,7 @@ function App() {
           }}
         >
           <Tab.Screen name="Home" component={HomeController} options={{ tabBarLabel: "Home" }} />
-          <Tab.Screen name="Search" component={SearchController} options={{ tabBarLabel: "Search" }} />
+          <Tab.Screen name="Search" component={SearchStack} options={{ tabBarLabel: "Search" }} />
           <Tab.Screen name="Season" component={SeasonController} options={{ tabBarLabel: "Season" }} />
           <Tab.Screen name="Standings" component={StandingsController} options={{ tabBarLabel: "Standings" }} />
         </Tab.Navigator>

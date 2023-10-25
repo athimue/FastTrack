@@ -1,13 +1,27 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, Text, StyleSheet, View } from "react-native";
-import { Divider } from "react-native-paper";
+import { Button, Text, StyleSheet, View, FlatList } from "react-native";
+import { DataTable, Divider } from "react-native-paper";
 import { Race } from "../../domain/model/Race";
-import { Circuit } from "../../domain/model/Circuit";
-import { Location } from "../../domain/model/Location";
+import { GetRaceUseCase } from "../../domain/usecase/GetRaceUseCase";
+import container, { TYPES } from "../../../inversify.config";
+import { useRoute } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
-const RaceController = () => {
+export const RaceController = () => {
   const navigation = useNavigation();
-  const race = new Race("", "", "", "", new Circuit("", "", "", new Location("", "", "", "")), new Date(), "");
+  const season = useRoute().params?.season;
+  const raceId = useRoute().params?.raceId;
+
+  const [race, setRace] = useState<Race>();
+
+  const getRaceUseCase: GetRaceUseCase = container.get(TYPES.GetRaceUseCase);
+
+  useEffect(() => {
+    (async () => {
+      const race = await getRaceUseCase.invoke(season, raceId);
+      setRace(race);
+    })();
+  }, [season, raceId]);
 
   return (
     <View style={styles.container}>
@@ -24,8 +38,38 @@ const RaceController = () => {
         </Text>
         <Text style={[styles.text, { marginBottom: 10 }]}>{race?.date.toString()}</Text>
         <Divider />
-        <Text style={[styles.text, { marginTop: 10 }]}>Race results</Text>
-        <View style={{}}></View>
+        <Text style={[styles.text, { marginTop: 10, textAlign: "center" }]}>LEADERBOARD</Text>
+        <View style={{}}>
+          <DataTable>
+            <DataTable.Header>
+              <DataTable.Title textStyle={{ color: "#ffffff" }}>Pos.</DataTable.Title>
+              <DataTable.Title textStyle={{ color: "#ffffff" }}>Name</DataTable.Title>
+              <DataTable.Title textStyle={{ color: "#ffffff" }}>Team</DataTable.Title>
+              <DataTable.Title textStyle={{ color: "#ffffff" }}>Time / Status</DataTable.Title>
+              <DataTable.Title textStyle={{ color: "#ffffff" }}>Points won</DataTable.Title>
+            </DataTable.Header>
+            <FlatList
+              data={race?.results}
+              renderItem={({ item, index }) => (
+                <DataTable.Row key={index}>
+                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>{item.position}</DataTable.Cell>
+                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>
+                    {item.driver.givenName} {item.driver.familyName}
+                  </DataTable.Cell>
+                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>{item.carConstructor.name}</DataTable.Cell>
+                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>
+                    {item.time?.time ? item.time?.time : item.status}
+                  </DataTable.Cell>
+                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>
+                    {Number(item.points) > 0 ? "+" + item.points : "-"}
+                  </DataTable.Cell>
+                </DataTable.Row>
+              )}
+              scrollEnabled={true}
+              keyExtractor={(driverStanding) => driverStanding.position}
+            />
+          </DataTable>
+        </View>
       </View>
     </View>
   );

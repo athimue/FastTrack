@@ -2,34 +2,32 @@ import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SelectList } from "react-native-dropdown-select-list";
+import { seasonChoices } from "../constant/Constants";
+import { GetCircuitsUseCase } from "../../domain/usecase/GetCircuitsUseCase";
+import container, { TYPES } from "../../../inversify.config";
 
 const SearchController = () => {
   const navigation = useNavigation();
-  const [season, setSeason] = useState<string>("");
+
+  const [season, setSeason] = useState<number>(seasonChoices[0].value);
   const [raceId, setRaceId] = useState<string>("");
   const [circuits, setCircuits] = useState<{}[]>([]);
 
-  const seasonChoices = [
-    { key: "2023", value: "2023" },
-    { key: "2022", value: "2022" },
-    { key: "2021", value: "2021" },
-    { key: "2020", value: "2020" },
-    { key: "2019", value: "2019" },
-    { key: "2018", value: "2018" },
-    { key: "2017", value: "2017" },
-    { key: "2016", value: "2016" },
-    { key: "2015", value: "2015" },
-    { key: "2014", value: "2014" },
-  ];
+  const getCircuitsUseCase: GetCircuitsUseCase = container.get(TYPES.GetCircuitsUseCase);
 
-  /*
   useEffect(() => {
-    let tampon: { key: string; value: string }[] = [];
-    data?.MRData.CircuitTable.Circuits.map((circuit, index) =>
-      tampon.push({ key: (index + 1).toString(), value: circuit.circuitName + " - " + circuit.Location.country })
-    );
-    setCircuits(tampon);
-  }, [data]); */
+    (async () => {
+      let tampon: { key: string; value: string }[] = [];
+      const circuits = await getCircuitsUseCase.invoke(season);
+      circuits.map((circuit, index) =>
+        tampon.push({
+          key: (index + 1).toString(),
+          value: circuit.circuitName + " - " + circuit.location.country,
+        })
+      );
+      setCircuits(tampon);
+    })();
+  }, [season]);
 
   return (
     <View style={{ backgroundColor: "#1e1e1e", flex: 1 }}>
@@ -41,10 +39,10 @@ const SearchController = () => {
             boxStyles={{ borderColor: "#ffffff" }}
             inputStyles={styles.whiteText}
             dropdownTextStyles={styles.whiteText}
-            setSelected={(season: string) => setSeason(season)}
+            setSelected={(season: number) => setSeason(season)}
             data={seasonChoices}
             placeholder="Season"
-            searchPlaceholder={season}
+            searchPlaceholder={season.toString()}
             save="value"
           />
         </View>
