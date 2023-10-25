@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { inject, injectable } from "inversify";
+import { injectable } from "inversify";
 import { Race } from "../../domain/model/Race";
 import { RaceRepository } from "../../domain/repository/RaceRepository";
 import { ErgastApi } from "../network/api/ErgastApi";

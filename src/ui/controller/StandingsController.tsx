@@ -3,20 +3,32 @@ import { StyleSheet, Text, View, FlatList, ScrollView, ActivityIndicator } from 
 import { DataTable, Divider } from "react-native-paper";
 import { SelectList } from "react-native-dropdown-select-list";
 import { seasonChoices } from "../constant/Constants";
+import { GetDriverStandingsUseCase } from "../../domain/usecase/GetDriverStandingsUseCase";
+import { GetConstructorStandingsUseCase } from "../../domain/usecase/GetConstructorStandingsUseCase";
+import container, { TYPES } from "../../../inversify.config";
+import { DriverStandings } from "../../domain/model/DriverStandings";
+import { ConstructorStandings } from "../../domain/model/ConstructorStandings";
 
 const StandingsController = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [season, setSeason] = useState<string>("2023");
 
-  const [drivers, setDrivers] = useState([]);
-  const [constructors, setConstructors] = useState([]);
-  const getSeasonPlanningUseCase: GetSeasonPlanningUseCase = container.get(TYPES.GetSeasonPlanningUseCase);
+  const [drivers, setDrivers] = useState<DriverStandings[]>([]);
+  const [constructors, setConstructors] = useState<ConstructorStandings[]>([]);
+
+  const getDriverStandingsUseCase: GetDriverStandingsUseCase = container.get(TYPES.GetDriverStandingsUseCase);
+  const getConstructorStandingsUseCase: GetConstructorStandingsUseCase = container.get(
+    TYPES.GetConstructorStandingsUseCase
+  );
 
   useEffect(() => {
     (async () => {
       try {
-        const races = await getSeasonPlanningUseCase.invoke(+season);
-        setRaces(races);
+        setIsLoading(true);
+        const drivers = await getDriverStandingsUseCase.invoke(+season);
+        setDrivers(drivers);
+        const constructors = await getConstructorStandingsUseCase.invoke(+season);
+        setConstructors(constructors);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -49,14 +61,14 @@ const StandingsController = () => {
                 <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Points</DataTable.Title>
               </DataTable.Header>
               <FlatList
-                data={data?.MRData.StandingsTable.StandingsLists[0].DriverStandings}
+                data={drivers}
                 renderItem={({ item: driverStanding, index }) => (
                   <DataTable.Row key={index}>
                     <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
                       {driverStanding.position}
                     </DataTable.Cell>
                     <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
-                      {driverStanding.Driver.givenName} {driverStanding.Driver.familyName}
+                      {driverStanding.driver.givenName} {driverStanding.driver.familyName}
                     </DataTable.Cell>
                     <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
                       {driverStanding.points}
@@ -78,14 +90,14 @@ const StandingsController = () => {
                 <DataTable.Title textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>Points</DataTable.Title>
               </DataTable.Header>
               <FlatList
-                data={constructorStandings}
+                data={constructors}
                 renderItem={({ item: constructorStandings, index }) => (
                   <DataTable.Row key={index}>
                     <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
                       {constructorStandings.position}
                     </DataTable.Cell>
                     <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
-                      {constructorStandings.Constructor.name}
+                      {constructorStandings.carConstructor.name}
                     </DataTable.Cell>
                     <DataTable.Cell textStyle={{ color: "#ffffff", fontFamily: "Avenir" }}>
                       {constructorStandings.points}

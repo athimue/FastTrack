@@ -7,26 +7,41 @@ import { GetLastRaceUseCase } from "./src/domain/usecase/GetLastRaceUseCase";
 import { GetNextRaceUseCase } from "./src/domain/usecase/GetNextRaceUseCase";
 import { SeasonRepositoryImpl } from "./src/data/repository/SeasonRepositoryImpl";
 import { SeasonRepository } from "./src/domain/repository/SeasonRepository";
-import { GetSeasonPlanningUseCase } from "./src/domain/usecase/GetSeasonPLanningUseCase";
+import { StandingsRepository } from "./src/domain/repository/StandingsRepository";
+import { StandingsRepositoryImpl } from "./src/data/repository/StandingsResponseImpl";
+import { GetSeasonPlanningUseCase } from "./src/domain/usecase/GetSeasonPlanningUseCase";
+import { GetDriverStandingsUseCase } from "./src/domain/usecase/GetDriverStandingsUseCase";
+import { GetConstructorStandingsUseCase } from "./src/domain/usecase/GetConstructorStandingsUseCase";
 
 export const TYPES = {
+  // DATA SOURCE
   ErgastApi: Symbol.for("ErgastApi"),
+  // REPOSITORY
   RaceRepository: Symbol.for("RaceRepository"),
   SeasonRepository: Symbol.for("SeasonRepository"),
+  StandingsRepository: Symbol.for("StandingsRepository"),
+  // USE CASE
   GetLastRaceUseCase: Symbol.for("GetLastRaceUseCase"),
   GetNextRaceUseCase: Symbol.for("GetNextRaceUseCase"),
   GetSeasonPlanningUseCase: Symbol.for("GetSeasonPlanningUseCase"),
+  GetDriverStandingsUseCase: Symbol.for("GetDriverStandingsUseCase"),
+  GetConstructorStandingsUseCase: Symbol.for("GetConstructorStandingsUseCase"),
 };
 
 const container = new Container();
 
-// Lier l'interface UserService à son implémentation UserServiceImpl
+// API
 container.bind<ErgastApi>(TYPES.ErgastApi).to(ErgastApi);
+// REPOSITORY
 container.bind<RaceRepository>(TYPES.RaceRepository).to(RaceRepositoryImpl);
 container.bind<SeasonRepository>(TYPES.SeasonRepository).to(SeasonRepositoryImpl);
+container.bind<StandingsRepository>(TYPES.StandingsRepository).to(StandingsRepositoryImpl);
+// USE CASE
 container.bind<GetLastRaceUseCase>(TYPES.GetLastRaceUseCase).to(GetLastRaceUseCase);
 container.bind<GetNextRaceUseCase>(TYPES.GetNextRaceUseCase).to(GetNextRaceUseCase);
 container.bind<GetSeasonPlanningUseCase>(TYPES.GetSeasonPlanningUseCase).to(GetSeasonPlanningUseCase);
+container.bind<GetDriverStandingsUseCase>(TYPES.GetDriverStandingsUseCase).to(GetDriverStandingsUseCase);
+container.bind<GetConstructorStandingsUseCase>(TYPES.GetConstructorStandingsUseCase).to(GetConstructorStandingsUseCase);
 
 // Exporter le conteneur
 export default container;

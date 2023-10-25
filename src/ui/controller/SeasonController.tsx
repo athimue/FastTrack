@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { ActivityIndicator } from "@react-native-material/core";
-import { GetSeasonPlanningUseCase } from "../../domain/usecase/GetSeasonPLanningUseCase";
+import { GetSeasonPlanningUseCase } from "../../domain/usecase/GetSeasonPlanningUseCase";
 import container, { TYPES } from "../../../inversify.config";
 import { SeasonRaceItem } from "../component/SeasonRaceItem";
 import { seasonChoices } from "../constant/Constants";

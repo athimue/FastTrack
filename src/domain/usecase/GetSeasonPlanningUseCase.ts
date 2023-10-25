@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import { injectable } from "inversify";
 import { Race } from "../model/Race";
-import { RaceRepository } from "../repository/RaceRepository";
 import container, { TYPES } from "../../../inversify.config";
 import { SeasonRepository } from "../repository/SeasonRepository";
 

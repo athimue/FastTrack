@@ -2,6 +2,8 @@ import "reflect-metadata";
 import axios from "axios";
 import { RaceDto, RaceResponseDto } from "../dto/RaceDto";
 import { injectable } from "inversify";
+import { DriverStandingDto, DriverStandingsResponseDto } from "../dto/DriverStandingsDto";
+import { ConstructorStandingDto, ConstructorStandingsResponseDto } from "../dto/ConstructorStandingsDto";
 
 @injectable()
 export class ErgastApi {
@@ -53,17 +55,17 @@ export class ErgastApi {
   };
 
   // STANDINGS API
-  getDriverStandings = async (season: number): Promise<RaceDto> => {
+  getDriverStandings = async (season: number): Promise<DriverStandingDto[]> => {
     return axios.get(`${this.baseUrl}/${season}/driverstandings.json`).then((response) => {
-      let raceResponseDto: RaceResponseDto = response.data;
-      return raceResponseDto.MRData.RaceTable.Races[0];
+      let driverStandingsResponseDto: DriverStandingsResponseDto = response.data;
+      return driverStandingsResponseDto.MRData.StandingsTable.StandingsLists[0].DriverStandings;
     });
   };
 
-  getConstructorStandings = async (season: number): Promise<RaceDto> => {
+  getConstructorStandings = async (season: number): Promise<ConstructorStandingDto[]> => {
     return axios.get(`${this.baseUrl}/${season}/constructorstandings.json`).then((response) => {
-      let raceResponseDto: RaceResponseDto = response.data;
-      return raceResponseDto.MRData.RaceTable.Races[0];
+      let constructorStandingsResponse: ConstructorStandingsResponseDto = response.data;
+      return constructorStandingsResponse.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
     });
   };
 }
