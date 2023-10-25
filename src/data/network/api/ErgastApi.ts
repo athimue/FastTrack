@@ -23,10 +23,10 @@ export class ErgastApi {
   };
 
   // SEASON API
-  getCurrentSeason = async (season: number): Promise<RaceDto> => {
+  getSeason = async (season: number): Promise<RaceDto[]> => {
     return axios.get(`${this.baseUrl}/${season}.json`).then((response) => {
       let raceResponseDto: RaceResponseDto = response.data;
-      return raceResponseDto.MRData.RaceTable.Races[0];
+      return raceResponseDto.MRData.RaceTable.Races;
     });
   };
 
