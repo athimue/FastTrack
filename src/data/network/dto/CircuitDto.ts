@@ -22,9 +22,9 @@ export interface CircuitDto {
   circuitId: string;
   url: string;
   circuitName: string;
-  location: LocationDto;
+  Location: LocationDto;
 }
 
 export function toCircuit(circuitDto: CircuitDto): Circuit {
-  return new Circuit(circuitDto.circuitId, circuitDto.url, circuitDto.circuitName, toLocation(circuitDto.location));
+  return new Circuit(circuitDto.circuitId, circuitDto.url, circuitDto.circuitName, toLocation(circuitDto.Location));
 }

@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList, TouchableOpacity, Linking } from "react-native";
-import { useGetCurrentSeasonQuery } from "../../data/store/api/seasonApi";
 import { useNavigation } from "@react-navigation/native";
 import { SelectList } from "react-native-dropdown-select-list";
 import { ActivityIndicator } from "@react-native-material/core";
 
-const Season = () => {
+const SeasonController = () => {
   const navigation = useNavigation();
   const [season, setSeason] = useState<string>("2023");
-  const { data } = useGetCurrentSeasonQuery(season);
   const spinnerChoices = [
     { key: "2023", value: "2023" },
     { key: "2022", value: "2022" },
@@ -53,9 +51,6 @@ const Season = () => {
         searchPlaceholder={season}
         save="value"
       />
-      {!data && <ActivityIndicator size="large" />}
-      {data && (
-      )}
     </View>
   );
 };
@@ -106,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Season;
+export default SeasonController;

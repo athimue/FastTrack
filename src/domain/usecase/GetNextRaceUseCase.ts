@@ -5,11 +5,11 @@ import { RaceRepository } from "../repository/RaceRepository";
 import container, { TYPES } from "../../../inversify.config";
 
 @injectable()
-export class GetLastRaceUseCase {
+export class GetNextRaceUseCase {
   private raceRepository: RaceRepository = container.get(TYPES.RaceRepository);
 
   invoke = async (): Promise<Race> => {
-    const result = await this.raceRepository.getLastRace();
+    const result = await this.raceRepository.getNextRace();
     return result;
   };
 }

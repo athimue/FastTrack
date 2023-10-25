@@ -13,7 +13,7 @@ export class RaceResult {
   grid: string;
   laps: string;
   status: string;
-  time?: ResultTime;
+  time: ResultTime | null;
   fatestLap: FastestLap;
 
   constructor(
@@ -26,7 +26,7 @@ export class RaceResult {
     grid: string,
     laps: string,
     status: string,
-    time: ResultTime,
+    time: ResultTime | null,
     fatestLap: FastestLap
   ) {
     this.number = number;

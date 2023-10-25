@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList, ScrollView, ActivityIndicator } from "react-native";
-import {
-  useGetCurrentDriverStandingsQuery,
-  useGetCurrentConstructorStandingsQuery,
-} from "../../data/store/api/standingsApi";
 import { DataTable, Divider } from "react-native-paper";
 import { SelectList } from "react-native-dropdown-select-list";
 
-const Standings = () => {
+const StandingsController = () => {
   const [season, setSeason] = useState<string>("2023");
-  const { data, isLoading } = useGetCurrentDriverStandingsQuery(season);
-  const constructorStandings =
-    useGetCurrentConstructorStandingsQuery(season).data?.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
   const spinnerChoices = [
     { key: "2023", value: "2023" },
     { key: "2022", value: "2022" },
@@ -34,18 +27,15 @@ const Standings = () => {
         searchPlaceholder={season}
         save="value"
       />
-      {isLoading && <ActivityIndicator size="large" />}
-      {data && (
-        <View style={{ flex: 1, flexDirection: "row" }}>
-          <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
-            <Text style={{ margin: 20, fontSize: 30, color: "#ffffff", fontFamily: "Avenir" }}>DRIVERS</Text>
-          </View>
-          <Divider horizontalInset />
-          <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
-            <Text style={{ margin: 20, fontSize: 30, color: "#ffffff", fontFamily: "Avenir" }}>CONSTRUCTORS</Text>
-          </View>
+      <View style={{ flex: 1, flexDirection: "row" }}>
+        <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
+          <Text style={{ margin: 20, fontSize: 30, color: "#ffffff" }}>DRIVERS</Text>
         </View>
-      )}
+        <Divider horizontalInset />
+        <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
+          <Text style={{ margin: 20, fontSize: 30, color: "#ffffff" }}>CONSTRUCTORS</Text>
+        </View>
+      </View>
     </View>
   );
 };
@@ -65,4 +55,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Standings;
+export default StandingsController;

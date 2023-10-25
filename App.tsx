@@ -1,35 +1,19 @@
+import "reflect-metadata";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import Season from "./src/screens/season";
 import React from "react";
-import { Provider } from "react-redux";
-import { store } from "./src/store/store";
-import Standings from "./src/screens/standings";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Home from "./src/screens/home";
-import Search from "./src/screens/search";
-import Race from "./src/screens/race";
+import HomeController from "./src/ui/controller/HomeController";
+import { Provider } from "inversify-react";
+import SearchController from "./src/ui/controller/SearchController";
+import SeasonController from "./src/ui/controller/SeasonController";
+import StandingsController from "./src/ui/controller/StandingsController";
+import container from "./inversify.config";
 
 const Tab = createMaterialTopTabNavigator();
-const Stack = createNativeStackNavigator();
-
-function SearchStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="Search"
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="Search" component={Search} />
-      <Stack.Screen name="Race" component={Race} />
-    </Stack.Navigator>
-  );
-}
 
 function App() {
   return (
-    <Provider store={store}>
+    <Provider container={container}>
       <NavigationContainer>
         <Tab.Navigator
           initialRouteName="Home"
@@ -41,15 +25,14 @@ function App() {
               backgroundColor: "#f00201",
             },
             tabBarLabelStyle: {
-              fontSize: 25,
-              fontFamily: "Radio+Canada",
+              fontSize: 13,
             },
           }}
         >
-          <Tab.Screen name="Home" component={Home} options={{ tabBarLabel: "Home" }} />
-          <Tab.Screen name="Search" component={SearchStack} options={{ tabBarLabel: "Search" }} />
-          <Tab.Screen name="Season" component={Season} options={{ tabBarLabel: "Season" }} />
-          <Tab.Screen name="Standings" component={Standings} options={{ tabBarLabel: "Standings" }} />
+          <Tab.Screen name="Home" component={HomeController} options={{ tabBarLabel: "Home" }} />
+          <Tab.Screen name="Search" component={SearchController} options={{ tabBarLabel: "Search" }} />
+          <Tab.Screen name="Season" component={SeasonController} options={{ tabBarLabel: "Season" }} />
+          <Tab.Screen name="Standings" component={StandingsController} options={{ tabBarLabel: "Standings" }} />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>

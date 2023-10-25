@@ -1,14 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, FlatList, Text, StyleSheet, View } from "react-native";
-import { useGetSeasonRaceResultQuery } from "../../data/store/api/seasonApi";
-import { useRoute } from "@react-navigation/native";
-import { DataTable, Divider } from "react-native-paper";
+import { Button, Text, StyleSheet, View } from "react-native";
+import { Divider } from "react-native-paper";
+import { Race } from "../../domain/model/Race";
+import { Circuit } from "../../domain/model/Circuit";
+import { Location } from "../../domain/model/Location";
 
-const Race = () => {
+const RaceController = () => {
   const navigation = useNavigation();
-  const season = useRoute().params?.season;
-  const raceId = useRoute().params?.raceId;
-  const race = useGetSeasonRaceResultQuery({ season, raceId }).data?.MRData.RaceTable.Races[0];
+  const race = new Race("", "", "", "", new Circuit("", "", "", new Location("", "", "", "")), new Date(), "");
 
   return (
     <View style={styles.container}>
@@ -21,7 +20,7 @@ const Race = () => {
           {race?.season} {race?.raceName}
         </Text>
         <Text style={styles.text}>
-          {race?.Circuit.circuitName} / {race?.Circuit.Location.country}
+          {race?.circuit.circuitName} / {race?.circuit.location.country}
         </Text>
         <Text style={[styles.text, { marginBottom: 10 }]}>{race?.date.toString()}</Text>
         <Divider />
@@ -52,7 +51,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: "#ffffff",
-    fontFamily: "Avenir",
     marginTop: 5,
     marginBottom: 5,
   },

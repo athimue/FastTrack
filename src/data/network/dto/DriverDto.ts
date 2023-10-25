@@ -1,3 +1,5 @@
+import { Driver } from "../../../domain/model/Driver";
+
 export type DriverResponse = {
   MRData: {
     DriverTable: DriverTableDto;
@@ -24,3 +26,16 @@ export type DriverDto = {
   dateOfBirth: Date;
   nationality: string;
 };
+
+export function toDriver(driverDto: DriverDto): Driver {
+  return new Driver(
+    driverDto.driverId,
+    driverDto.permanentNumber,
+    driverDto.code,
+    driverDto.url,
+    driverDto.givenName,
+    driverDto.familyName,
+    driverDto.dateOfBirth,
+    driverDto.nationality
+  );
+}

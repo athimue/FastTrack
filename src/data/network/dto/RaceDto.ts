@@ -1,16 +1,19 @@
+import { FastestLap } from "../../../domain/model/FatestLap";
 import { Race } from "../../../domain/model/Race";
+import { RaceResult } from "../../../domain/model/RaceResult";
+import { ResultTime } from "../../../domain/model/ResultTime";
 import { CircuitDto, toCircuit } from "./CircuitDto";
-import { ConstructorDto } from "./ConstructorDto";
-import { DriverDto } from "./DriverDto";
+import { ConstructorDto, toConstructor } from "./ConstructorDto";
+import { DriverDto, toDriver } from "./DriverDto";
 
 export interface RaceResponseDto {
   MRData: {
-    xmlns: string;
-    series: string;
-    url: string;
     limit: string;
     offset: string;
+    series: string;
     total: string;
+    url: string;
+    xmlns: string;
     RaceTable: RaceTableDto;
   };
 }
@@ -57,6 +60,10 @@ export interface FastestLapDto {
   AverageSpeed: AverageSpeedDto;
 }
 
+export function toFatestLap(fatestLapDto: FastestLapDto): FastestLap {
+  return new FastestLap(fatestLapDto.rank, fatestLapDto.lap, fatestLapDto.Time, fatestLapDto.AverageSpeed);
+}
+
 export interface AverageSpeedDto {
   units: string;
   speed: string;
@@ -69,6 +76,10 @@ export interface FastestLapTimeDto {
 export interface ResultTimeDto {
   millis: string;
   time: string;
+}
+
+export function toResultTime(resultTimeDto: ResultTimeDto): ResultTime {
+  return new ResultTime(resultTimeDto.millis, resultTimeDto.time);
 }
 
 export interface PracticeDto {
@@ -84,6 +95,23 @@ export function toRace(raceDto: RaceDto): Race {
     raceDto.raceName,
     toCircuit(raceDto.Circuit),
     raceDto.date,
-    raceDto.time
+    raceDto.time,
+    raceDto.Results != undefined ? raceDto.Results.map((result) => toRaceResult(result)) : null
+  );
+}
+
+export function toRaceResult(raceResultDto: RaceResultDto): RaceResult {
+  return new RaceResult(
+    raceResultDto.number,
+    raceResultDto.position,
+    raceResultDto.positionText,
+    raceResultDto.points,
+    toDriver(raceResultDto.Driver),
+    toConstructor(raceResultDto.Constructor),
+    raceResultDto.grid,
+    raceResultDto.laps,
+    raceResultDto.status,
+    raceResultDto.Time != undefined ? toResultTime(raceResultDto.Time) : null,
+    raceResultDto.FastestLap != undefined ? toFatestLap(raceResultDto.FastestLap) : null
   );
 }

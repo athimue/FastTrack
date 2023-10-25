@@ -10,11 +10,11 @@ export class Race {
   circuit: Circuit;
   date: Date;
   time: string;
-  results?: RaceResult[];
-  firstPractice?: Practice;
-  qualifying?: Practice;
-  secondPractice?: Practice;
-  sprint?: Practice;
+  results?: RaceResult[] | null;
+  firstPractice?: Practice | null;
+  qualifying?: Practice | null;
+  secondPractice?: Practice | null;
+  sprint?: Practice | null;
 
   constructor(
     season: string,
@@ -23,7 +23,12 @@ export class Race {
     raceName: string,
     circuit: Circuit,
     date: Date,
-    time: string
+    time: string,
+    results?: RaceResult[],
+    firstPractice?: Practice | null,
+    qualifying?: Practice | null,
+    secondPractice?: Practice | null,
+    sprint?: Practice | null
   ) {
     this.season = season;
     this.round = round;
@@ -32,5 +37,10 @@ export class Race {
     this.circuit = circuit;
     this.date = date;
     this.time = time;
+    this.results = results;
+    this.firstPractice = firstPractice;
+    this.qualifying = qualifying;
+    this.secondPractice = secondPractice;
+    this.sprint = sprint;
   }
 }

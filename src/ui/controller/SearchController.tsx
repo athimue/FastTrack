@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Text, View, StyleSheet, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { SelectList } from "react-native-dropdown-select-list";
-import { useGetSeasonCircuitsQuery } from "../../data/store/api/seasonApi";
 
-const Search = () => {
+const SearchController = () => {
   const navigation = useNavigation();
   const [season, setSeason] = useState<string>("");
   const [raceId, setRaceId] = useState<string>("");
   const [circuits, setCircuits] = useState<{}[]>([]);
-  const { data } = useGetSeasonCircuitsQuery(season);
 
   const seasonChoices = [
     { key: "2023", value: "2023" },
@@ -24,13 +22,14 @@ const Search = () => {
     { key: "2014", value: "2014" },
   ];
 
+  /*
   useEffect(() => {
     let tampon: { key: string; value: string }[] = [];
     data?.MRData.CircuitTable.Circuits.map((circuit, index) =>
       tampon.push({ key: (index + 1).toString(), value: circuit.circuitName + " - " + circuit.Location.country })
     );
     setCircuits(tampon);
-  }, [data]);
+  }, [data]); */
 
   return (
     <View style={{ backgroundColor: "#1e1e1e", flex: 1 }}>
@@ -46,7 +45,6 @@ const Search = () => {
             data={seasonChoices}
             placeholder="Season"
             searchPlaceholder={season}
-            fontFamily="Avenir"
             save="value"
           />
         </View>
@@ -59,7 +57,6 @@ const Search = () => {
             data={circuits}
             placeholder="Circuit"
             searchPlaceholder={raceId}
-            fontFamily="Avenir"
             save="key"
           />
         </View>
@@ -76,7 +73,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: "center",
     color: "#ffffff",
-    fontFamily: "Avenir",
     padding: 40,
   },
   whiteText: {
@@ -100,4 +96,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Search;
+export default SearchController;
