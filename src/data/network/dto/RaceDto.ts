@@ -20,7 +20,7 @@ export interface RaceResponseDto {
 
 export interface RaceTableDto {
   season: string;
-  round: string;
+  round?: string;
   Races: RaceDto[];
 }
 
