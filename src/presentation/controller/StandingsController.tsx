@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, FlatList, ScrollView, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, FlatList } from "react-native";
 import { DataTable, Divider } from "react-native-paper";
 import { SelectList } from "react-native-dropdown-select-list";
 import { seasonChoices } from "../constant/Constants";
@@ -8,6 +8,7 @@ import { GetConstructorStandingsUseCase } from "../../domain/usecase/GetConstruc
 import container, { TYPES } from "../../../inversify.config";
 import { DriverStandings } from "../../domain/model/DriverStandings";
 import { ConstructorStandings } from "../../domain/model/ConstructorStandings";
+import { ProgressLoader } from "../component/ProgressLoader";
 
 const StandingsController = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,8 +27,8 @@ const StandingsController = () => {
       try {
         setIsLoading(true);
         const drivers = await getDriverStandingsUseCase.invoke(+season);
-        setDrivers(drivers);
         const constructors = await getConstructorStandingsUseCase.invoke(+season);
+        setDrivers(drivers);
         setConstructors(constructors);
         setIsLoading(false);
       } catch (error) {
@@ -38,7 +39,7 @@ const StandingsController = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>STANDINGS OF THE SELECTED SEASON</Text>
+      <Text style={styles.title}>SEASON STANDINGS</Text>
       <SelectList
         boxStyles={{ borderColor: "#ffffff" }}
         inputStyles={{ color: "#ffffff" }}
@@ -49,7 +50,7 @@ const StandingsController = () => {
         searchPlaceholder={season}
         save="value"
       />
-      {isLoading && <ActivityIndicator size="large" />}
+      {isLoading && <ProgressLoader />}
       {!isLoading && (
         <View style={{ flex: 1, flexDirection: "row" }}>
           <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
@@ -110,15 +111,15 @@ const StandingsController = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#1e1e1e",
-    paddingHorizontal: 40,
+    paddingHorizontal: 10,
     flex: 1,
   },
-  header: {
+  title: {
+    fontSize: 30,
     textAlign: "center",
+    color: "#707079",
     padding: 20,
-    marginTop: 5,
-    fontSize: 35,
-    color: "#ffffff",
+    fontWeight: "bold",
   },
 });
 

@@ -31,7 +31,7 @@ const SearchController = () => {
 
   return (
     <View style={{ backgroundColor: "#1e1e1e", flex: 1 }}>
-      <Text style={styles.title}>Search by Race</Text>
+      <Text style={styles.title}>SEARCH</Text>
       <Text style={styles.title}>Search info based on year and circuit</Text>
       <View style={{ flexDirection: "row" }}>
         <View style={{ flex: 1, margin: 40 }}>
@@ -70,8 +70,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     textAlign: "center",
-    color: "#ffffff",
-    padding: 40,
+    color: "#707079",
+    padding: 20,
+    fontWeight: "bold",
   },
   whiteText: {
     color: "#ffffff",
