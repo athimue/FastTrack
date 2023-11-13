@@ -7,7 +7,7 @@ export class DriverStandings {
   points: string;
   wins: string;
   driver: Driver;
-  carConstructor: Constructor;
+  carConstructor: Constructor[];
 
   constructor(
     position: string,
@@ -15,7 +15,7 @@ export class DriverStandings {
     points: string,
     wins: string,
     driver: Driver,
-    constructor: Constructor
+    constructor: Constructor[]
   ) {
     this.position = position;
     this.positionText = positionText;

@@ -2,7 +2,7 @@ import { DriverStandings } from "../../../domain/model/DriverStandings";
 import { ConstructorDto, toConstructor } from "./ConstructorDto";
 import { DriverDto, toDriver } from "./DriverDto";
 
-export interface DriverStandingsReponseDto {
+export interface DriverStandingsResponseDto {
   MRData: {
     xmlns: string;
     series: string;
