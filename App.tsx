@@ -1,16 +1,18 @@
 import "reflect-metadata";
+import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
-import HomeController from "./src/ui/controller/HomeController";
 import { Provider } from "inversify-react";
-import SearchController from "./src/ui/controller/SearchController";
-import SeasonController from "./src/ui/controller/SeasonController";
+import SearchController from "./src/presentation/controller/SearchController";
+import SeasonController from "./src/presentation/controller/SeasonController";
+import StandingsController from "./src/presentation/controller/StandingsController";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import StandingsController from "./src/ui/controller/StandingsController";
 
 import container from "./inversify.config";
-import { RaceController } from "./src/ui/controller/RaceController";
+import { RaceController } from "./src/presentation/controller/RaceController";
+import HomeController from "./src/presentation/controller/HomeController";
+
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,19 +40,43 @@ function App() {
           screenOptions={{
             tabBarActiveTintColor: "#ffffff",
             tabBarInactiveTintColor: "#f00201",
-            tabBarStyle: { backgroundColor: "#1e1e1e" },
+            tabBarStyle: { backgroundColor: "#1e1e1e", paddingTop: 50 },
             tabBarIndicatorStyle: {
               backgroundColor: "#f00201",
             },
             tabBarLabelStyle: {
-              fontSize: 13,
+              fontSize: 18,
             },
           }}
         >
-          <Tab.Screen name="Home" component={HomeController} options={{ tabBarLabel: "Home" }} />
-          <Tab.Screen name="Search" component={SearchStack} options={{ tabBarLabel: "Search" }} />
-          <Tab.Screen name="Season" component={SeasonController} options={{ tabBarLabel: "Season" }} />
-          <Tab.Screen name="Standings" component={StandingsController} options={{ tabBarLabel: "Standings" }} />
+          <Tab.Screen
+            name="Home"
+            component={HomeController}
+            options={{
+              tabBarIcon: ({ color }) => <Ionicons name="home" color={color} size={20} />,
+            }}
+          />
+          <Tab.Screen
+            name="Search"
+            component={SearchStack}
+            options={{
+              tabBarIcon: ({ color }) => <Ionicons name="search" color={color} size={20} />,
+            }}
+          />
+          <Tab.Screen
+            name="Season"
+            component={SeasonController}
+            options={{
+              tabBarIcon: ({ color }) => <Ionicons name="calendar" color={color} size={20} />,
+            }}
+          />
+          <Tab.Screen
+            name="Standings"
+            component={StandingsController}
+            options={{
+              tabBarIcon: ({ color }) => <Ionicons name="trophy" color={color} size={20} />,
+            }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>
