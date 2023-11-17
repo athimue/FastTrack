@@ -79,12 +79,13 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    alignSelf: "stretch",
     justifyContent: "center",
     paddingVertical: 12,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: "black",
+    backgroundColor: "#707079",
+    width: "50%",
+    alignSelf: "center",
   },
   text: {
     fontSize: 16,
