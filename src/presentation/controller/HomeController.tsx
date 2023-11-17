@@ -56,7 +56,7 @@ const HomeController: React.FC = () => {
           showSeparator
         />
       )}
-      <NextRace race={nextRace} />
+      <NextRace nextRace={nextRace} />
       <LastRace lastRace={lastRace} />
     </ScrollView>
   );
