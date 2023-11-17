@@ -4,7 +4,7 @@ import { Race } from "../../domain/model/Race";
 
 const styles = StyleSheet.create({
   subtitle: {
-    fontSize: 25,
+    fontSize: 20,
     color: "#ffffff",
     padding: 10,
     textAlign: "center",
@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
 });
 
 export type NextRaceProps = {
-  race: Race | undefined;
+  nextRace: Race | undefined;
 };
 
-export const NextRace: React.FC<NextRaceProps> = ({ race }) => {
+export const NextRace: React.FC<NextRaceProps> = ({ nextRace }) => {
   return (
     <View
       style={{
@@ -32,11 +32,11 @@ export const NextRace: React.FC<NextRaceProps> = ({ race }) => {
       }}
     >
       <View style={{ flex: 1 }}>
-        <Text style={styles.subtitle}>GP n°{race?.round}</Text>
+        <Text style={styles.subtitle}>GP n°{nextRace?.round}</Text>
         <Text style={styles.subtitle}>
-          {race?.raceName} / {race?.circuit.circuitName}
+          {nextRace?.raceName} / {nextRace?.circuit.circuitName}
         </Text>
-        <Text style={styles.subtitle}>{moment(race?.date + " " + race?.time).toString()}</Text>
+        <Text style={styles.subtitle}>{moment(nextRace?.date + " " + nextRace?.time).toString()}</Text>
       </View>
       <View style={{ flex: 1, alignContent: "center", justifyContent: "center", alignItems: "center" }}>
         <Image
