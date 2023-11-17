@@ -1,11 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, Text, StyleSheet, View, FlatList } from "react-native";
+import { Text, StyleSheet, View, FlatList, TouchableOpacity, ScrollView } from "react-native";
 import { DataTable, Divider } from "react-native-paper";
 import { Race } from "../../domain/model/Race";
 import { GetRaceUseCase } from "../../domain/usecase/GetRaceUseCase";
 import container, { TYPES } from "../../../inversify.config";
 import { useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 export const RaceController = () => {
   const navigation = useNavigation();
@@ -24,11 +25,13 @@ export const RaceController = () => {
   }, [season, raceId]);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.header}>
-        <Button onPress={() => navigation.goBack()} title="BACK" />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="ios-arrow-back" size={24} color="#000" />
+        </TouchableOpacity>
+        <Text style={styles.title}>RACE ↓</Text>
       </View>
-      <Text style={styles.title}>RACE ↓</Text>
       <View style={{ margin: 25 }}>
         <Text style={styles.text}>
           {race?.season} {race?.raceName}
@@ -38,7 +41,7 @@ export const RaceController = () => {
         </Text>
         <Text style={[styles.text, { marginBottom: 10 }]}>{race?.date.toString()}</Text>
         <Divider />
-        <Text style={[styles.text, { marginTop: 10, textAlign: "center" }]}>LEADERBOARD</Text>
+        <Text style={[styles.text, { marginTop: 10, textAlign: "center", color: "#707079" }]}>LEADERBOARD</Text>
         <View style={{}}>
           <DataTable>
             <DataTable.Header>
@@ -71,7 +74,7 @@ export const RaceController = () => {
           </DataTable>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -86,8 +89,10 @@ const styles = StyleSheet.create({
     padding: 20,
     marginTop: 10,
     fontSize: 35,
+    alignItems: "center",
   },
   title: {
+    width: "100%",
     fontSize: 35,
     color: "#707079",
     textAlign: "center",
