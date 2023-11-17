@@ -43,24 +43,26 @@ const SeasonController = () => {
         data={seasonChoices}
         placeholder={season}
         searchPlaceholder={season}
-        save="value"
+        save="key"
       />
       {isLoading && <ProgressLoader />}
       {!isLoading && (
-        <FlatList
-          data={races}
-          renderItem={({ item: race, index }) => (
-            <SeasonRaceItem
-              race={race}
-              index={index}
-              onClick={() => {
-                navigation.navigate("Race", { season: race?.season, raceId: race?.round });
-              }}
-            />
-          )}
-          numColumns={2}
-          keyExtractor={(race) => race.round}
-        />
+        <View style={{ padding: 10, marginBottom: 20 }}>
+          <FlatList
+            data={races}
+            renderItem={({ item: race, index }) => (
+              <SeasonRaceItem
+                race={race}
+                index={index}
+                onClick={() => {
+                  navigation.navigate("Race", { season: race?.season, raceId: race?.round });
+                }}
+              />
+            )}
+            numColumns={2}
+            keyExtractor={(race) => race.round}
+          />
+        </View>
       )}
     </View>
   );
