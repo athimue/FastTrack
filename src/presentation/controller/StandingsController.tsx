@@ -53,11 +53,11 @@ const StandingsController = () => {
       {isLoading && <ProgressLoader />}
       {!isLoading && (
         <View style={{ flex: 1, flexDirection: "row" }}>
-          <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
-            <Text style={{ margin: 20, fontSize: 30, color: "#ffffff" }}>DRIVERS</Text>
+          <View style={{ flex: 1, alignItems: "center", padding: 5 }}>
+            <Text style={{ margin: 10, fontSize: 30, color: "#ffffff" }}>DRIVERS</Text>
             <DataTable>
               <DataTable.Header>
-                <DataTable.Title textStyle={{ color: "#ffffff" }}>Position</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff" }}>Pos.</DataTable.Title>
                 <DataTable.Title textStyle={{ color: "#ffffff" }}>Name</DataTable.Title>
                 <DataTable.Title textStyle={{ color: "#ffffff" }}>Points</DataTable.Title>
               </DataTable.Header>
@@ -77,12 +77,11 @@ const StandingsController = () => {
               />
             </DataTable>
           </View>
-          <Divider horizontalInset />
-          <View style={{ flex: 1, alignItems: "center", margin: 5 }}>
-            <Text style={{ margin: 20, fontSize: 30, color: "#ffffff" }}>CONSTRUCTORS</Text>
+          <View style={{ flex: 1, alignItems: "center", padding: 5 }}>
+            <Text style={{ margin: 10, fontSize: 30, color: "#ffffff" }}>CONSTRUCTORS</Text>
             <DataTable>
               <DataTable.Header>
-                <DataTable.Title textStyle={{ color: "#ffffff" }}>Position</DataTable.Title>
+                <DataTable.Title textStyle={{ color: "#ffffff" }}>Pos.</DataTable.Title>
                 <DataTable.Title textStyle={{ color: "#ffffff" }}>Name</DataTable.Title>
                 <DataTable.Title textStyle={{ color: "#ffffff" }}>Points</DataTable.Title>
               </DataTable.Header>
@@ -111,14 +110,13 @@ const StandingsController = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#1e1e1e",
-    paddingHorizontal: 10,
     flex: 1,
   },
   title: {
     fontSize: 30,
     textAlign: "center",
     color: "#707079",
-    padding: 20,
+    padding: 10,
     fontWeight: "bold",
   },
 });
