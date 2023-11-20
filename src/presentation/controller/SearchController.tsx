@@ -5,8 +5,9 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { seasonChoices } from "../constant/Constants";
 import { GetCircuitsUseCase } from "../../domain/usecase/GetCircuitsUseCase";
 import container, { TYPES } from "../../../inversify.config";
+import { RaceRouteParams } from "./RaceController";
 
-const SearchController = () => {
+const SearchController: React.FC = () => {
   const navigation = useNavigation();
 
   const [season, setSeason] = useState<number>(seasonChoices[0].value);
@@ -59,7 +60,7 @@ const SearchController = () => {
           />
         </View>
       </View>
-      <Pressable style={styles.button} onPress={() => navigation.navigate("Race", { season: season, raceId: raceId })}>
+      <Pressable style={styles.button} onPress={() => navigation.navigate("Race", { season, raceId })}>
         <Text style={styles.text}>Search race</Text>
       </Pressable>
     </View>

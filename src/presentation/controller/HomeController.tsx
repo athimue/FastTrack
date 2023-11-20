@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import React, { useEffect, useState } from "react";
-import { Text, StyleSheet, ScrollView } from "react-native";
+import { Text, StyleSheet, ScrollView, View } from "react-native";
 import CountDown from "react-native-countdown-component";
 import { GetLastRaceUseCase } from "../../domain/usecase/GetLastRaceUseCase";
 import { Race } from "../../domain/model/Race";
@@ -31,13 +31,13 @@ const HomeController: React.FC = () => {
   }, []);
 
   useEffect((): void => {
-    if (lastRace != undefined) {
+    if (nextRace != undefined) {
       const currentDate = moment();
-      const targetDate = moment(lastRace.date + " " + lastRace.time);
+      const targetDate = moment(nextRace.date + " " + nextRace.time);
       const differenceInSeconds = targetDate.diff(currentDate, "seconds");
       setTotalDuration(differenceInSeconds);
     }
-  }, [totalDuration, lastRace]);
+  }, [totalDuration, nextRace]);
 
   return (
     <ScrollView style={{ backgroundColor: "#1e1e1e", flex: 1 }}>
