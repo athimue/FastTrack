@@ -9,7 +9,7 @@ import { seasonChoices } from "../constant/Constants";
 import { ProgressLoader } from "../component/ProgressLoader";
 import { Race } from "../../domain/model/Race";
 
-const SeasonController = () => {
+const SeasonController: React.FC = () => {
   const navigation = useNavigation();
 
   const [isLoading, setIsLoading] = useState(true);

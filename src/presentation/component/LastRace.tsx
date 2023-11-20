@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { Race } from "../../domain/model/Race";
-import { DataTable, Divider } from "react-native-paper";
+import { Divider } from "react-native-paper";
+import { RaceStanding, RaceStandingsTable } from "./RaceStandingTable";
 
 const styles = StyleSheet.create({
   title: {
@@ -36,37 +37,18 @@ export const LastRace: React.FC<LastRaceProps> = ({ lastRace }) => {
         <Text style={[styles.information, { marginBottom: 10 }]}>{lastRace?.date.toString()}</Text>
         <Divider />
         <Text style={[styles.information, { marginTop: 10, textAlign: "center" }]}>LEADERBOARD</Text>
-        <View style={{}}>
-          <DataTable>
-            <DataTable.Header>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Pos.</DataTable.Title>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Name</DataTable.Title>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Team</DataTable.Title>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Time / Status</DataTable.Title>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Points won</DataTable.Title>
-            </DataTable.Header>
-            <FlatList
-              data={lastRace?.results}
-              renderItem={({ item, index }) => (
-                <DataTable.Row key={index}>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>{item.position}</DataTable.Cell>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>
-                    {item.driver.givenName} {item.driver.familyName}
-                  </DataTable.Cell>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>{item.carConstructor.name}</DataTable.Cell>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>
-                    {item.time?.time ? item.time?.time : item.status}
-                  </DataTable.Cell>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>
-                    {Number(item.points) > 0 ? "+" + item.points : "-"}
-                  </DataTable.Cell>
-                </DataTable.Row>
-              )}
-              scrollEnabled={true}
-              keyExtractor={(driverStanding) => driverStanding.position}
-            />
-          </DataTable>
-        </View>
+        <RaceStandingsTable
+          standings={lastRace?.results?.map(
+            (result) =>
+              new RaceStanding(
+                result.position,
+                result.driver.familyName,
+                result.carConstructor.name,
+                result.time?.time ? result.time?.time : result.status,
+                result.points
+              )
+          )}
+        />
       </View>
     </View>
   );

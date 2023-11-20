@@ -17,17 +17,58 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 const Tab = createMaterialTopTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function SearchStack() {
+function MainTabNavigator() {
   return (
-    <Stack.Navigator
-      initialRouteName="Search"
+    <Tab.Navigator
+      initialRouteName="Home"
       screenOptions={{
-        headerShown: false,
+        tabBarActiveTintColor: "#ffffff",
+        tabBarInactiveTintColor: "#f00201",
+        tabBarStyle: {
+          backgroundColor: "#1e1e1e",
+          paddingTop: 50,
+        },
+        tabBarIndicatorStyle: {
+          backgroundColor: "#f00201",
+        },
+        tabBarLabelStyle: {
+          fontSize: 18,
+        },
       }}
     >
-      <Stack.Screen name="Search" component={SearchController} />
-      <Stack.Screen name="Race" component={RaceController} />
-    </Stack.Navigator>
+      <Tab.Screen
+        name="Home"
+        component={HomeController}
+        options={{
+          tabBarIcon: ({ color }) => <Ionicons name="home" color={color} size={20} />,
+          tabBarLabel: "",
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={SearchController}
+        options={{
+          tabBarIcon: ({ color }) => <Ionicons name="search" color={color} size={20} />,
+          tabBarLabel: "",
+        }}
+      />
+      <Tab.Screen
+        name="Season"
+        component={SeasonController}
+        options={{
+          tabBarIcon: ({ color }) => <Ionicons name="calendar" color={color} size={20} />,
+          tabBarLabel: "",
+        }}
+      />
+      <Tab.Screen
+        name="Standings"
+        component={StandingsController}
+        options={{
+          tabBarIcon: ({ color }) => <Ionicons name="trophy" color={color} size={20} />,
+          tabBarLabel: "",
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 
@@ -35,49 +76,15 @@ function App() {
   return (
     <Provider container={container}>
       <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName="Home"
+        <Stack.Navigator
+          initialRouteName="MainTabNavigator"
           screenOptions={{
-            tabBarActiveTintColor: "#ffffff",
-            tabBarInactiveTintColor: "#f00201",
-            tabBarStyle: { backgroundColor: "#1e1e1e", paddingTop: 50 },
-            tabBarIndicatorStyle: {
-              backgroundColor: "#f00201",
-            },
-            tabBarLabelStyle: {
-              fontSize: 18,
-            },
+            headerShown: false,
           }}
         >
-          <Tab.Screen
-            name="Home"
-            component={HomeController}
-            options={{
-              tabBarIcon: ({ color }) => <Ionicons name="home" color={color} size={20} />,
-            }}
-          />
-          <Tab.Screen
-            name="Search"
-            component={SearchStack}
-            options={{
-              tabBarIcon: ({ color }) => <Ionicons name="search" color={color} size={20} />,
-            }}
-          />
-          <Tab.Screen
-            name="Season"
-            component={SeasonController}
-            options={{
-              tabBarIcon: ({ color }) => <Ionicons name="calendar" color={color} size={20} />,
-            }}
-          />
-          <Tab.Screen
-            name="Standings"
-            component={StandingsController}
-            options={{
-              tabBarIcon: ({ color }) => <Ionicons name="trophy" color={color} size={20} />,
-            }}
-          />
-        </Tab.Navigator>
+          <Stack.Screen name="MainTabNavigator" component={MainTabNavigator} />
+          <Stack.Screen name="Race" component={RaceController} />
+        </Stack.Navigator>
       </NavigationContainer>
     </Provider>
   );

@@ -7,11 +7,17 @@ import container, { TYPES } from "../../../inversify.config";
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { RaceStanding, RaceStandingsTable } from "../component/RaceStandingTable";
 
-export const RaceController = () => {
+export interface RaceRouteParams {
+  season: number;
+  raceId: number;
+}
+
+export const RaceController: React.FC = () => {
   const navigation = useNavigation();
-  const season = useRoute().params?.season;
-  const raceId = useRoute().params?.raceId;
+  const { params } = useRoute();
+  const { season, raceId }: RaceRouteParams = params;
 
   const [race, setRace] = useState<Race>();
 
@@ -42,37 +48,18 @@ export const RaceController = () => {
         <Text style={[styles.text, { marginBottom: 10 }]}>{race?.date.toString()}</Text>
         <Divider />
         <Text style={[styles.text, { marginTop: 10, textAlign: "center", color: "#707079" }]}>LEADERBOARD</Text>
-        <View style={{}}>
-          <DataTable>
-            <DataTable.Header>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Pos.</DataTable.Title>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Name</DataTable.Title>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Team</DataTable.Title>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Time / Status</DataTable.Title>
-              <DataTable.Title textStyle={{ color: "#ffffff" }}>Points won</DataTable.Title>
-            </DataTable.Header>
-            <FlatList
-              data={race?.results}
-              renderItem={({ item, index }) => (
-                <DataTable.Row key={index}>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>{item.position}</DataTable.Cell>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>
-                    {item.driver.givenName} {item.driver.familyName}
-                  </DataTable.Cell>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>{item.carConstructor.name}</DataTable.Cell>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>
-                    {item.time?.time ? item.time?.time : item.status}
-                  </DataTable.Cell>
-                  <DataTable.Cell textStyle={{ color: "#ffffff" }}>
-                    {Number(item.points) > 0 ? "+" + item.points : "-"}
-                  </DataTable.Cell>
-                </DataTable.Row>
-              )}
-              scrollEnabled={true}
-              keyExtractor={(driverStanding) => driverStanding.position}
-            />
-          </DataTable>
-        </View>
+        <RaceStandingsTable
+          standings={race?.results.map(
+            (result) =>
+              new RaceStanding(
+                result.position,
+                result.driver.familyName,
+                result.carConstructor.name,
+                result.time?.time ? result.time?.time : result.status,
+                result.points
+              )
+          )}
+        />
       </View>
     </ScrollView>
   );
@@ -80,14 +67,13 @@ export const RaceController = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
     backgroundColor: "#1e1e1e",
     flex: 1,
   },
   header: {
     flexDirection: "row",
     padding: 20,
-    marginTop: 10,
+    marginTop: 40,
     fontSize: 35,
     alignItems: "center",
   },
