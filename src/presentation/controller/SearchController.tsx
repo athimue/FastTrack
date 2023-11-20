@@ -5,7 +5,6 @@ import { SelectList } from "react-native-dropdown-select-list";
 import { seasonChoices } from "../constant/Constants";
 import { GetCircuitsUseCase } from "../../domain/usecase/GetCircuitsUseCase";
 import container, { TYPES } from "../../../inversify.config";
-import { RaceRouteParams } from "./RaceController";
 
 const SearchController: React.FC = () => {
   const navigation = useNavigation();
