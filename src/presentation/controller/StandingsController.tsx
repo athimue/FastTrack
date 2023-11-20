@@ -8,7 +8,7 @@ import container, { TYPES } from "../../../inversify.config";
 import { DriverStandings } from "../../domain/model/DriverStandings";
 import { ConstructorStandings } from "../../domain/model/ConstructorStandings";
 import { ProgressLoader } from "../component/ProgressLoader";
-import { Standing, StandingsTable } from "../component/StandingTable";
+import { GeneralStanding, GeneralStandingsTable } from "../component/GeneralStandingTable";
 
 const StandingsController: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -53,14 +53,17 @@ const StandingsController: React.FC = () => {
       {isLoading && <ProgressLoader />}
       {!isLoading && (
         <View style={{ flex: 1, flexDirection: "row" }}>
-          <StandingsTable
+          <GeneralStandingsTable
             title={"DRIVER"}
-            standings={drivers.map((driver) => new Standing(driver.position, driver.driver.familyName, driver.points))}
+            standings={drivers.map(
+              (driver) => new GeneralStanding(driver.position, driver.driver.familyName, driver.points)
+            )}
           />
-          <StandingsTable
+          <GeneralStandingsTable
             title={"CONSTRUCTORS"}
             standings={constructors.map(
-              (constructor) => new Standing(constructor.position, constructor.carConstructor.name, constructor.points)
+              (constructor) =>
+                new GeneralStanding(constructor.position, constructor.carConstructor.name, constructor.points)
             )}
           />
         </View>

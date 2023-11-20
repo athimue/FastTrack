@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { DataTable } from "react-native-paper";
 
-export class Standing {
+export class GeneralStanding {
   position: string;
   name: string;
   points: string;
@@ -13,7 +13,10 @@ export class Standing {
   }
 }
 
-export const StandingsTable: React.FC<{ title: string; standings: Standing[] }> = ({ title, standings }) => {
+export const GeneralStandingsTable: React.FC<{ title: string; standings: GeneralStanding[] }> = ({
+  title,
+  standings,
+}) => {
   return (
     <ScrollView style={{ flex: 1, padding: 5 }}>
       <Text style={styles.title}>{title}</Text>
