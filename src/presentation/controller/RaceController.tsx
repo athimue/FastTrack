@@ -67,14 +67,13 @@ export const RaceController: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
     backgroundColor: "#1e1e1e",
     flex: 1,
   },
   header: {
     flexDirection: "row",
     padding: 20,
-    marginTop: 10,
+    marginTop: 40,
     fontSize: 35,
     alignItems: "center",
   },
