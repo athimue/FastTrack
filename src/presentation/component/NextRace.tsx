@@ -36,7 +36,9 @@ export const NextRace: React.FC<NextRaceProps> = ({ nextRace }) => {
         <Text style={styles.subtitle}>
           {nextRace?.raceName} / {nextRace?.circuit.circuitName}
         </Text>
-        <Text style={styles.subtitle}>{moment(nextRace?.date + " " + nextRace?.time).toString()}</Text>
+        <Text style={styles.subtitle}>
+          {moment(nextRace?.date + " " + nextRace?.time, "YYYY-MM-DD hh:mm:ss").toString()}
+        </Text>
       </View>
       <View style={{ flex: 1, alignContent: "center", justifyContent: "center", alignItems: "center" }}>
         <Image
